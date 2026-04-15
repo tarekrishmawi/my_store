@@ -1,6 +1,9 @@
 {
   "name": "my-store",
-  "version": "0.0.0",
+  "description": "My Store Project",
+  "author": "Tarek Rishmawi",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
