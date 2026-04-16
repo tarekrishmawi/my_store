@@ -1,3 +1,5 @@
 <img [src]="product.imageUrl" width="250" />
 <h3>{{ product.name }}</h3>
 <p>{{ product.price }}</p>
+<!-- add view details button -->
+<a class="btn btn-primary" [routerLink]="['/products', product.id]"> View Details </a>

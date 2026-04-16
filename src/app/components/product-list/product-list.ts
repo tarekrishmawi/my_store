@@ -16,8 +16,12 @@ export class ProductList {
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productService.getProducts().subscribe((products) => {
+      this.products = products;
     });
   }
 }
