@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['']" (click)="isMenuCollapsed = true">My Store</a>
+
+    <!-- Hamburger Button -->
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible Menu -->
+    <div [class.collapse]="isMenuCollapsed" class="navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['']"
+            active
+            aria-current="page"
+            (click)="isMenuCollapsed = true"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/products']" (click)="isMenuCollapsed = true"
+            >Products</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
