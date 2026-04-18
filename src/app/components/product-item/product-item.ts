@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product';
 import { RouterLink } from '@angular/router';
 
@@ -11,4 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductItem {
   @Input() product!: Product;
+  @Output() add = new EventEmitter<Product>();
 }
