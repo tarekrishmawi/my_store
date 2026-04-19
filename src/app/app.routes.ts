@@ -5,12 +5,16 @@ import { ProductDetails } from './components/product-details/product-details';
 import { Cart } from './components/cart/cart';
 import { Checkout } from './components/checkout/checkout';
 import { Success } from './components/success/success';
+import { Login } from './pages/login/login';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-  { path: '', component: Home, pathMatch: 'full' },
-  { path: 'products', component: ProductList },
+  { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+  { path: 'pages/home', component: Home, pathMatch: 'full' },
+  { path: 'pages/products', component: ProductList },
   { path: 'products/:id', component: ProductDetails },
-  { path: 'cart', component: Cart },
-  { path: 'checkout', component: Checkout },
-  { path: 'success', component: Success },
+  { path: 'cart', component: Cart, canActivate: [authGuard] },
+  { path: 'checkout', component: Checkout, canActivate: [authGuard] },
+  { path: 'success', component: Success, canActivate: [authGuard] },
+  { path: 'login', component: Login },
 ];

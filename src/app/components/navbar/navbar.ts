@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,12 @@ import { CartService } from '../../services/cart';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  constructor(public cart: CartService) {}
   isMenuCollapsed = true;
+  constructor(
+    public cart: CartService,
+    public authService: AuthService,
+  ) {}
+  logout() {
+    this.authService.logout();
+  }
 }

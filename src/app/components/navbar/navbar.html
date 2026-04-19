@@ -1,37 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['']" (click)="isMenuCollapsed = true">My Store</a>
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/pages/home" (click)="isMenuCollapsed = true"> My Store </a>
 
-    <!-- Hamburger Button -->
+    <!-- Hamburger -->
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapsible Menu -->
-    <div [class.collapse]="isMenuCollapsed" class="navbar-collapse" id="navbarContent">
+    <!-- Navbar Content -->
+    <div [class.collapse]="isMenuCollapsed" class="navbar-collapse">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['']"
-            active
-            aria-current="page"
-            (click)="isMenuCollapsed = true"
-            >Home</a
-          >
+          <a class="nav-link" routerLink="/pages/home" (click)="isMenuCollapsed = true"> Home </a>
         </li>
+
+        <!-- Products (ALWAYS visible) -->
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/products']" (click)="isMenuCollapsed = true"
-            >Products</a
-          >
+          <a class="nav-link" routerLink="/pages/products" (click)="isMenuCollapsed = true">
+            Products
+          </a>
         </li>
-        <li class="nav-item position-relative">
-          <a class="nav-link" [routerLink]="['/cart']" (click)="isMenuCollapsed = true">
+
+        <!-- Cart (ONLY when logged in) -->
+        <li class="nav-item position-relative" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/cart" (click)="isMenuCollapsed = true">
             🛒 Cart
 
-            <!-- Add bonus optional  -->
             <span
-              class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
               *ngIf="cart.itemsCount$ | async as count"
             >
               {{ count }}
@@ -39,6 +36,24 @@
           </a>
         </li>
       </ul>
+
+      <!-- RIGHT SIDE ACTIONS -->
+      <div class="d-flex gap-2">
+        <!-- Login (ONLY when NOT logged in) -->
+        <a
+          *ngIf="!authService.isLoggedIn()"
+          routerLink="/login"
+          class="btn btn-outline-light"
+          (click)="isMenuCollapsed = true"
+        >
+          Login
+        </a>
+
+        <!-- Logout (ONLY when logged in) -->
+        <button *ngIf="authService.isLoggedIn()" class="btn btn-danger" (click)="logout()">
+          Logout
+        </button>
+      </div>
     </div>
   </div>
 </nav>
