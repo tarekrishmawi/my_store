@@ -1,6 +1,6 @@
 <img [src]="product.imageUrl" width="250" />
 <h3>{{ product.name }}</h3>
-<p>{{ product.price }}</p>
+<p>{{ product.price | currency: 'USD' }}</p>
 
 <!-- add button container -->
 <div class="d-flex flex-column align-items-center">
