@@ -25,8 +25,18 @@
             >Products</a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/cart']" (click)="isMenuCollapsed = true">Cart</a>
+        <li class="nav-item position-relative">
+          <a class="nav-link" [routerLink]="['/cart']" (click)="isMenuCollapsed = true">
+            🛒 Cart
+
+            <!-- Add bonus optional  -->
+            <span
+              class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger"
+              *ngIf="cart.itemsCount$ | async as count"
+            >
+              {{ count }}
+            </span>
+          </a>
         </li>
       </ul>
     </div>
