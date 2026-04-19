@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Checkout</h2>
+
+  <form #checkoutForm="ngForm" (ngSubmit)="submit(checkoutForm)">
+    <!-- Name -->
+    <div class="mb-3">
+      <label class="form-label">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        [(ngModel)]="name"
+        required
+        minlength="3"
+        #nameInput="ngModel"
+      />
+
+      <div class="text-danger" *ngIf="nameInput.invalid && nameInput.touched">
+        Name must be at least 3 characters
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="mb-3">
+      <label class="form-label">Address</label>
+      <input
+        type="text"
+        class="form-control"
+        name="address"
+        [(ngModel)]="address"
+        required
+        minlength="5"
+        #addressInput="ngModel"
+      />
+
+      <div class="text-danger" *ngIf="addressInput.invalid && addressInput.touched">
+        Address must be at least 5 characters
+      </div>
+    </div>
+
+    <!-- Credit Card -->
+    <div class="mb-3">
+      <label class="form-label">Credit Card</label>
+      <input
+        type="text"
+        class="form-control"
+        name="creditCard"
+        [(ngModel)]="creditCard"
+        required
+        minlength="16"
+        maxlength="16"
+        #cardInput="ngModel"
+      />
+
+      <div class="text-danger" *ngIf="cardInput.invalid && cardInput.touched">
+        Credit card must be 16 digits
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn btn-primary" type="submit" [disabled]="checkoutForm.invalid">
+      Submit Order
+    </button>
+  </form>
+</div>
