@@ -17,3 +17,12 @@ export const mapApiProductToProduct = (p: ApiProduct): Product => ({
   description: p.description,
   category: p.category,
 });
+
+// Converts frontend Product (or partial for update) to Backend ApiProduct format
+export const mapProductToApiProduct = (p: Partial<Product>): Partial<ApiProduct> => ({
+  name: p.name,
+  price: String(p.price), // Backend expects a string for the price
+  image_url: p.imageUrl, // Backend expects image_url
+  description: p.description,
+  category: p.category,
+});

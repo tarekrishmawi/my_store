@@ -1,0 +1,126 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+        <button
+          type="button"
+          class="btn-close"
+          (click)="errorMessage = null"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0 h5">Add New Product to MyStore</h3>
+        </div>
+        <div class="card-body">
+          <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+            <div class="mb-3">
+              <label for="name" class="form-label">Product Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                ngModel
+                required
+                #name="ngModel"
+                class="form-control"
+                [class.is-invalid]="name.invalid && name.touched"
+              />
+              <div class="invalid-feedback">Product name is required.</div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">Price ($)</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  ngModel
+                  required
+                  #price="ngModel"
+                  class="form-control"
+                  [class.is-invalid]="price.invalid && price.touched"
+                />
+                <div class="invalid-feedback">Valid price is required.</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select
+                  id="category"
+                  name="category"
+                  ngModel
+                  required
+                  #category="ngModel"
+                  class="form-select"
+                  [class.is-invalid]="category.invalid && category.touched"
+                >
+                  <option value="" disabled selected>Select category...</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Books">Books</option>
+                  <option value="Clothing">Clothing</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="imageUrl" class="form-label">Image URL</label>
+              <input
+                type="text"
+                id="imageUrl"
+                name="imageUrl"
+                [(ngModel)]="urlInput"
+                required
+                class="form-control"
+                placeholder="https://example.com/image.png"
+              />
+              <small class="form-text text-muted">Paste a link to an image from the web.</small>
+            </div>
+
+            <div class="mb-3 text-center" *ngIf="urlInput">
+              <div class="p-2 border rounded bg-light">
+                <p class="small text-muted">Image Preview:</p>
+                <img
+                  [src]="urlInput"
+                  alt="Preview"
+                  class="img-fluid rounded"
+                  style="max-height: 200px"
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                ngModel
+                class="form-control"
+                rows="3"
+                placeholder="Write a few words about the product..."
+              ></textarea>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="productForm.invalid || isSubmitting"
+              >
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+                {{ isSubmitting ? 'Saving...' : 'Create Product' }}
+              </button>
+              <a routerLink="/pages/products" class="btn btn-link text-secondary"
+                >Back to Products</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

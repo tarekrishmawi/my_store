@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { ApiProduct } from './product.mapper';
+import { ApiProduct, mapProductToApiProduct } from './product.mapper';
 import { map, Observable, of } from 'rxjs';
 import { mapApiProductToProduct } from './product.mapper';
 
@@ -30,5 +30,15 @@ export class ProductService {
 
   getProduct(id: number): Observable<Product | undefined> {
     return this.getProducts().pipe(map((products) => products.find((p) => p.id === id)));
+  }
+
+  // create a new product and add it to the in-memory products array
+  createProduct(product: Omit<Product, 'id'>): Observable<Product> {
+    // Translate to Backend format before sending
+    const body = mapProductToApiProduct(product);
+
+    return this.http
+      .post<ApiProduct>(this.apiUrl, body)
+      .pipe(map((apiProduct) => mapApiProductToProduct(apiProduct)));
   }
 }
