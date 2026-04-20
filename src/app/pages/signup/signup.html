@@ -1,0 +1,127 @@
+<div class="container mt-4">
+  <h2>Sign Up</h2>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+    <!-- Global Error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Success -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <!-- First Name -->
+    <div class="mb-3">
+      <label>First Name</label>
+
+      <input
+        type="text"
+        name="firstName"
+        class="form-control"
+        required
+        minlength="2"
+        maxlength="30"
+        pattern="^[a-zA-Z]+$"
+        [(ngModel)]="user.firstName"
+        #firstName="ngModel"
+      />
+
+      <div *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+        <small *ngIf="firstName.errors?.['required']">First name is required</small>
+        <small *ngIf="firstName.errors?.['minlength']">Minimum 2 characters</small>
+        <small *ngIf="firstName.errors?.['maxlength']">Max 30 characters</small>
+        <small *ngIf="firstName.errors?.['pattern']">Only letters allowed</small>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="mb-3">
+      <label>Last Name</label>
+
+      <input
+        type="text"
+        name="lastName"
+        class="form-control"
+        required
+        minlength="2"
+        maxlength="30"
+        pattern="^[a-zA-Z]+$"
+        [(ngModel)]="user.lastName"
+        #lastName="ngModel"
+      />
+
+      <div *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+        <small *ngIf="lastName.errors?.['required']">Last name is required</small>
+        <small *ngIf="lastName.errors?.['minlength']">Minimum 2 characters</small>
+        <small *ngIf="lastName.errors?.['maxlength']">Max 30 characters</small>
+        <small *ngIf="lastName.errors?.['pattern']">Only letters allowed</small>
+      </div>
+    </div>
+
+    <!-- Username -->
+    <div class="mb-3">
+      <label>Username</label>
+
+      <input
+        type="text"
+        name="userName"
+        class="form-control"
+        required
+        minlength="3"
+        maxlength="20"
+        pattern="^[a-zA-Z0-9_]+$"
+        [(ngModel)]="user.userName"
+        #userName="ngModel"
+      />
+
+      <!-- Angular validation -->
+      <div *ngIf="userName.invalid && userName.touched" class="text-danger">
+        <small *ngIf="userName.errors?.['required']">Username is required</small>
+        <small *ngIf="userName.errors?.['minlength']">Minimum 3 characters</small>
+        <small *ngIf="userName.errors?.['maxlength']">Max 20 characters</small>
+        <small *ngIf="userName.errors?.['pattern']">
+          Only letters, numbers, and underscore allowed
+        </small>
+      </div>
+
+      <!-- Backend error -->
+      <div *ngIf="usernameError" class="text-danger">
+        {{ usernameError }}
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label>Password</label>
+
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        required
+        minlength="6"
+        maxlength="50"
+        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+      />
+
+      <div *ngIf="password.invalid && password.touched" class="text-danger">
+        <small *ngIf="password.errors?.['required']">Password is required</small>
+        <small *ngIf="password.errors?.['minlength']"> Minimum 6 characters </small>
+        <small *ngIf="password.errors?.['maxlength']"> Max 50 characters </small>
+        <small *ngIf="password.errors?.['pattern']">
+          Must contain at least one letter and one number
+        </small>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid || isSubmitting">
+      <span *ngIf="!isSubmitting">Create Account</span>
+      <span *ngIf="isSubmitting">Creating...</span>
+    </button>
+  </form>
+</div>
