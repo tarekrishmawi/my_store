@@ -5,9 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 
 import { App } from './app/app';
+import { appConfig } from './app/app.config'; // Import your config
 
-import { routes } from './app/app.routes';
-
-bootstrapApplication(App, {
-  providers: [provideHttpClient(), provideRouter(routes)],
-});
+bootstrapApplication(App, appConfig) // Use the config here
+  .catch((err) => console.error(err));
