@@ -9,7 +9,6 @@ import { AuthService } from '../../services/auth';
   standalone: true,
   imports: [RouterLink, AsyncPipe, CommonModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
 })
 export class Navbar {
   isMenuCollapsed = true;

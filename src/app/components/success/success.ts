@@ -6,7 +6,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-success',
   imports: [CommonModule, RouterLink],
   templateUrl: './success.html',
-  styleUrl: './success.css',
 })
 export class Success implements OnInit {
   name = '';

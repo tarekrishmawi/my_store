@@ -9,7 +9,6 @@ import { CartService } from '../../services/cart';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './checkout.html',
-  styleUrl: './checkout.css',
 })
 export class Checkout {
   name: string = '';

@@ -8,7 +8,6 @@ import { Router, RouterLink } from '@angular/router';
   selector: 'app-login',
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
-  styleUrl: './login.css',
 })
 export class Login {
   username = '';

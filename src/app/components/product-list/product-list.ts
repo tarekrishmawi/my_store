@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [ProductItem, CommonModule],
   templateUrl: './product-list.html',
-  styleUrl: './product-list.css',
 })
 export class ProductList implements OnInit {
   // changed to observable to use async pipe in the template to fix rendering issues

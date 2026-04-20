@@ -8,7 +8,6 @@ import { Product } from '../../models/product';
   selector: 'app-product-details',
   imports: [],
   templateUrl: './product-details.html',
-  styleUrl: './product-details.css',
 })
 export class ProductDetails implements OnInit {
   // Using Angular's new inject function to get the ActivatedRoute and ProductService instances

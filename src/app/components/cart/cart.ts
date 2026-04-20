@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './cart.html',
-  styleUrls: ['./cart.css'],
 })
 export class Cart {
   items: Product[] = [];
