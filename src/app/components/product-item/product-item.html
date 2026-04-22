@@ -28,6 +28,15 @@
       <button *ngIf="isLoggedIn" class="btn btn-success" (click)="add.emit(product)">
         Add to Cart
       </button>
+
+      <!-- Edit button -->
+      <a
+        *ngIf="isLoggedIn"
+        class="btn btn-outline-secondary"
+        [routerLink]="['/pages/products/edit', product.id]"
+      >
+        Edit
+      </a>
     </div>
   </div>
 </div>

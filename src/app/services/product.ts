@@ -32,13 +32,37 @@ export class ProductService {
     return this.getProducts().pipe(map((products) => products.find((p) => p.id === id)));
   }
 
-  // create a new product and add it to the in-memory products array
   createProduct(product: Omit<Product, 'id'>): Observable<Product> {
-    // Translate to Backend format before sending
     const body = mapProductToApiProduct(product);
 
-    return this.http
-      .post<ApiProduct>(this.apiUrl, body)
-      .pipe(map((apiProduct) => mapApiProductToProduct(apiProduct)));
+    return this.http.post<ApiProduct>(this.apiUrl, body).pipe(
+      map((apiProduct) => {
+        const newProduct = mapApiProductToProduct(apiProduct);
+
+        // sync the in-memory products array with the newly created product
+        this.products.push(newProduct);
+
+        return newProduct;
+      }),
+    );
+  }
+
+  // update an existing product and update it in the in-memory products array
+  updateProduct(id: number, product: Product): Observable<Product> {
+    const body = mapProductToApiProduct(product);
+
+    return this.http.put<ApiProduct>(`${this.apiUrl}/${id}`, body).pipe(
+      map((updatedApiProduct) => {
+        const updatedProduct = mapApiProductToProduct(updatedApiProduct);
+
+        // sync cache
+        const index = this.products.findIndex((p) => p.id === id);
+        if (index !== -1) {
+          this.products[index] = updatedProduct;
+        }
+
+        return updatedProduct;
+      }),
+    );
   }
 }

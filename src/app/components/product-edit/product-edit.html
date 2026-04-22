@@ -1,0 +1,102 @@
+<div class="container mt-5" *ngIf="product">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = null"></button>
+      </div>
+
+      <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+          <h3 class="mb-0 h5">Edit Product</h3>
+        </div>
+
+        <div class="card-body">
+          <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+            <!-- NAME -->
+            <div class="mb-3">
+              <label class="form-label">Product Name</label>
+              <input
+                type="text"
+                name="name"
+                [(ngModel)]="product.name"
+                required
+                #name="ngModel"
+                class="form-control"
+                [class.is-invalid]="name.invalid && name.touched"
+              />
+              <div class="invalid-feedback">Required</div>
+            </div>
+
+            <!-- PRICE + CATEGORY -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  [(ngModel)]="product.price"
+                  required
+                  #price="ngModel"
+                  class="form-control"
+                  [class.is-invalid]="price.invalid && price.touched"
+                />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" [(ngModel)]="product.category" required class="form-select">
+                  <option value="General">General</option>
+                  <option value="Accessories">Accessories</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Books">Books</option>
+                  <option value="Clothing">Clothing</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- IMAGE -->
+            <div class="mb-3">
+              <label class="form-label">Image URL</label>
+              <input
+                type="text"
+                name="imageUrl"
+                [(ngModel)]="product.imageUrl"
+                (ngModelChange)="urlInput = $event"
+                class="form-control"
+              />
+            </div>
+
+            <!-- PREVIEW -->
+            <div *ngIf="urlInput" class="mb-3 text-center">
+              <img [src]="urlInput" class="img-fluid" style="max-height: 200px" />
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="mb-3">
+              <textarea
+                name="description"
+                [(ngModel)]="product.description"
+                class="form-control"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-warning"
+                [disabled]="productForm.invalid || isSubmitting"
+              >
+                {{ isSubmitting ? 'Saving...' : 'Update Product' }}
+              </button>
+
+              <a routerLink="/pages/products" class="btn btn-link"> Back </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
