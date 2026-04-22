@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import { RouterLink } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ export class ProductList implements OnInit {
     private productService: ProductService,
     private cart: CartService,
     private auth: AuthService,
+    private toast: ToastService,
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,10 @@ export class ProductList implements OnInit {
 
   addToCart(product: Product) {
     this.cart.add(product);
-    alert('Added to cart!');
+
+    this.toast.show(`${product.name} added to cart`, {
+      classname: 'bg-success text-white',
+      delay: 3000,
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class Login {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private toast: ToastService,
   ) {}
 
   login() {
@@ -28,6 +30,10 @@ export class Login {
       .subscribe({
         next: () => {
           this.router.navigate(['/pages/home']);
+          this.toast.show(`Login successful, welcome ${this.username}!`, {
+            classname: 'bg-success text-white',
+            delay: 3000,
+          });
         },
         error: () => {
           this.errorMessage = 'Invalid username or password';

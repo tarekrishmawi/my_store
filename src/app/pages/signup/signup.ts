@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth';
+import { ToastService } from '../../services/toast';
 
 // Define an interface for API error responses
 interface ApiError {
@@ -36,6 +37,7 @@ export class Signup {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private toast: ToastService,
   ) {}
 
   onSubmit(form: NgForm): void {
@@ -55,6 +57,10 @@ export class Signup {
         form.resetForm();
         // navigate to login page after successful registration
         this.router.navigate(['/login']);
+        this.toast.show('Account created successfully!', {
+          classname: 'bg-success text-white',
+          delay: 3000,
+        });
       },
       error: (err: { status: number; error: ApiError }) => {
         this.isSubmitting = false;
