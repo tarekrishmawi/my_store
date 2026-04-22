@@ -5,6 +5,7 @@ import { Product } from '../../models/product';
 import { CartService } from '../../services/cart';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
+import { ToastService } from '../../services/toast';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ export class ProductDetails implements OnInit {
   private productService = inject(ProductService);
   private cart = inject(CartService);
   private auth = inject(AuthService);
+  private toast = inject(ToastService);
 
   // using Angular's signal to hold the product data, reactive updates , initial value = null
   product = signal<Product | null>(null);
@@ -42,6 +44,17 @@ export class ProductDetails implements OnInit {
 
     if (!p) return;
 
+    if (!this.auth.isLoggedIn()) {
+      this.toast.show('Please login to add items to cart', {
+        classname: 'bg-warning text-dark',
+      });
+      return;
+    }
+
     this.cart.add(p);
+
+    this.toast.show(`${p.name} added to cart`, {
+      classname: 'bg-success text-white',
+    });
   }
 }

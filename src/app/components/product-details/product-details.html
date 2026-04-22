@@ -40,12 +40,7 @@
               </button>
 
               <!-- Add to Cart -->
-              <button class="btn btn-success" (click)="addToCart()" [disabled]="!isLoggedIn">
-                Add to Cart
-              </button>
-              @if (!isLoggedIn) {
-                <small class="text-muted my-auto"> Please login to add items to cart </small>
-              }
+              <button class="btn btn-success" (click)="addToCart()">Add to Cart</button>
             </div>
           </div>
         </div>
