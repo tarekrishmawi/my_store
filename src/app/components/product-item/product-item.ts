@@ -11,5 +11,6 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductItem {
   @Input() product!: Product;
+  @Input() isLoggedIn = false;
   @Output() add = new EventEmitter<Product>();
 }
