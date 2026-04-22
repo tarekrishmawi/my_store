@@ -1,59 +1,266 @@
-# MyStore
+# MyStore – Full Stack Angular E-Commerce Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+## Project Overview
 
-## Development server
+MyStore is a full-stack e-commerce web application built using Angular for the frontend and a Node.js REST API backend running inside Docker.
 
-To start a local development server, run:
+The application allows users to browse products, view product details, register, log in, add items to a shopping cart, and complete a checkout process. The backend provides persistent data storage with seeded sample data so the application works immediately after setup.
+
+This project was developed as part of the Udacity Frontend Nanodegree program and demonstrates real-world full-stack application architecture.
+
+---
+
+## Repository Structure
+
+```
+MY_STORE/
+ ├── backend/      # Node.js REST API running in Docker
+ ├── frontend/     # Angular application
+ └── README.md
+```
+
+---
+
+## Features
+
+### User Features
+
+* User registration (Sign Up)
+* User login authentication
+* Protected routes using Angular Guards
+* Logout functionality
+
+### Product Features
+
+* Product listing page
+* Product details page
+* Fetch products from REST API
+* Responsive product cards
+* Dynamic routing for product pages
+
+### Cart Features
+
+* Add product to cart
+* Remove product from cart
+* Cart item quantity management
+* Real-time cart total calculation
+* Cart persistence during session
+
+### Checkout Features
+
+* Template-driven checkout form
+* Form validation
+* Order submission
+* Order success confirmation page
+
+### Architecture Features
+
+* Angular standalone components
+* Angular routing
+* Route guards for authentication
+* HTTP interceptors for API requests
+* Services for state management
+* Observable-based data handling (RxJS)
+* REST API backend
+* Dockerized backend environment
+* Seeded database for immediate testing
+* CORS configuration
+* Clean modular project structure
+
+---
+
+## Technologies Used
+
+Frontend:
+
+* Angular
+* TypeScript
+* RxJS
+* Bootstrap
+* HTML
+
+Backend:
+
+* Node.js
+* Express
+* REST API
+* Docker
+* Docker Compose
+
+---
+
+## System Requirements
+
+* Node.js
+* npm
+* Docker
+* Angular CLI
+
+---
+
+## Installation and Setup
+
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
+cd MY_STORE
+```
+
+---
+
+## Step 1 — Start Backend (Docker)
+
+Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the backend container:
+
+```bash
+npm run docker:up
+```
+
+The backend will:
+
+* Start automatically
+* Seed the database
+* Create sample products
+* Create test user accounts
+
+Backend API will run at:
+
+```
+http://localhost:3000
+```
+
+---
+
+## Step 2 — Start Frontend (Angular)
+
+Open a new terminal.
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the Angular development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open the application:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+# Default Seeded User
+
+During setup, a default user is automatically created.
+
+Example:
+
+```json
+{
+  "username": "tarekrishmawi",
+  "password": "tarek2026"
+}
 ```
 
-## Building
+## API Endpoints (Example)
 
-To build the project run:
-
-```bash
-ng build
+```
+GET    /products
+GET    /products/:id
+POST   /users
+POST   /login
+POST   /orders
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Project Structure (Frontend)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```
+frontend/
+ ├── src/
+ │    ├── app/
+ │    │    ├── components/
+ │    │    ├── services/
+ │    │    ├── models/
+ │    │    ├── guards/
+ │    │    ├── interceptors/
+ │    │    └── pages/
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## User Flow
 
-```bash
-ng e2e
+1. User opens the application
+2. Products are loaded from the backend API
+3. User registers or logs in
+4. User browses products
+5. User views product details
+6. User adds items to cart
+7. User reviews cart
+8. User completes checkout
+9. Order confirmation is displayed
+
+---
+
+## Running the Application (Quick Start)
+
+```
+git clone <repo-url>
+
+cd MY_STORE/backend
+npm install
+npm run docker:up
+
+cd ../frontend
+npm install
+ng serve
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## Notes for Reviewer
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* The backend runs in Docker
+* The database is automatically seeded
+* No external configuration is required
+* The application runs entirely locally
+* All features are fully functional
+
+---
+
+## Author
+
+Tarek Rishmawi
+
+---
+
+## License
+
+MIT
