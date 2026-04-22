@@ -6,7 +6,7 @@ MyStore is a full-stack e-commerce web application built using Angular for the f
 
 The application allows users to browse products, view product details, register, log in, add items to a shopping cart, and complete a checkout process. The backend provides persistent data storage with seeded sample data so the application works immediately after setup.
 
-This project was developed as part of the Udacity Frontend Nanodegree program and demonstrates real-world full-stack application architecture.
+This project was developed as part of the Udacity Full Stack JavaScript Nanodegree program and demonstrates real-world full-stack application architecture.
 
 ---
 
@@ -36,7 +36,7 @@ MY_STORE/
 * Product details page
 * Fetch products from REST API
 * Responsive product cards
-* Dynamic routing for product pages
+* ADD/EDIT products
 
 ### Cart Features
 
@@ -83,6 +83,7 @@ Backend:
 
 * Node.js
 * Express
+* Postgres 
 * REST API
 * Docker
 * Docker Compose
@@ -103,7 +104,7 @@ Backend:
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/tarekrishmawi/my_store
 cd MY_STORE
 ```
 
@@ -186,18 +187,6 @@ Example:
   "password": "tarek2026"
 }
 ```
-
-## API Endpoints (Example)
-
-```
-GET    /products
-GET    /products/:id
-POST   /users
-POST   /login
-POST   /orders
-```
-
----
 
 ## Project Structure (Frontend)
 
