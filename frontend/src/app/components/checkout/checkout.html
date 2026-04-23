@@ -10,6 +10,7 @@
         class="form-control"
         name="name"
         [(ngModel)]="name"
+        (ngModelChange)="onInputChange()"
         required
         minlength="3"
         #nameInput="ngModel"

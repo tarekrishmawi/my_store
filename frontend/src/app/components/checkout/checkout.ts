@@ -20,6 +20,7 @@ export class Checkout {
     private router: Router,
   ) {}
 
+  onInputChange() {}
   //  add ngform to enforce type safety and navigate to success page with state data
   submit(form: NgForm) {
     if (form.valid) {
