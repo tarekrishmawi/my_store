@@ -39,4 +39,19 @@ export class AuthService {
   register(user: User) {
     return this.http.post<User>(`${this.apiUrl}`, user);
   }
+
+  getUserId(): number | null {
+    const token = this.getToken();
+
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      // reutrn the user id from the payload of the token
+      return payload.user.id;
+    } catch {
+      return null;
+    }
+  }
 }
