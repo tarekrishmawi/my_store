@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { ApiProduct, mapProductToApiProduct } from './product.mapper';
-import { map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { mapApiProductToProduct } from './product.mapper';
 
 @Injectable({
@@ -16,14 +16,27 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
   getProducts(): Observable<Product[]> {
-    // hold the products in memory
+    // Return cached products if already loaded
     if (this.products.length) {
       return of(this.products);
     }
+
     return this.http.get<ApiProduct[]>(this.apiUrl).pipe(
       map((data) => {
         this.products = data.map(mapApiProductToProduct);
         return this.products;
+      }),
+
+      // Fallback if backend is not running
+      catchError((error) => {
+        console.warn('API not available — loading local products.json');
+
+        return this.http.get<Product[]>('products.json').pipe(
+          map((data) => {
+            this.products = data;
+            return this.products;
+          }),
+        );
       }),
     );
   }

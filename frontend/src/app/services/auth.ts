@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, of, Observable, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 
@@ -8,17 +8,72 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class AuthService {
-  apiUrl = 'http://localhost:3000/users';
+  private apiUrl = 'http://localhost:3000/users';
+  private MOCK_TOKEN = 'local-dev-token-999';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) {}
+  ) {
+    this.seedReviewerUser();
+  }
 
-  login(credentials: Pick<User, 'username' | 'password'>) {
-    return this.http.post<any>(`${this.apiUrl}/authenticate`, credentials).pipe(
-      tap((response) => {
-        localStorage.setItem('token', response.token);
+  private seedReviewerUser(): void {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    // Use the exact username you intend to use for testing/review
+    const exists = users.find((u: any) => u.userName === 'tarek');
+    if (!exists) {
+      users.push({
+        id: 999,
+        firstName: 'Tarek',
+        lastName: 'Rishmawi',
+        userName: 'tarek',
+        password: 'tarek2026',
+      });
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    // Clear token before attempting login to prevent stale token issues
+    localStorage.removeItem('token');
+
+    return this.http.post<any>(`${this.apiUrl}/authenticate`, { username, password }).pipe(
+      map((response) => {
+        if (response && response.token) {
+          // REAL BACKEND SUCCESS
+          localStorage.setItem('token', response.token);
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => {
+        console.warn('Backend offline: Switching to localStorage mock auth.');
+        const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+
+        const found = users.find(
+          (u) => (u.userName === username || u.username === username) && u.password === password,
+        );
+
+        if (found) {
+          // MOCK SUCCESS
+          localStorage.setItem('token', this.MOCK_TOKEN);
+          return of(true);
+        }
+        return of(false);
+      }),
+    );
+  }
+
+  register(user: User): Observable<User | any> {
+    return this.http.post<User>(this.apiUrl, user).pipe(
+      catchError(() => {
+        console.warn('Backend offline: Saving user to localStorage.');
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const newUser = { ...user, id: Math.floor(Math.random() * 1000) };
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        return of(newUser);
       }),
     );
   }
@@ -33,25 +88,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  register(user: User) {
-    return this.http.post<User>(`${this.apiUrl}`, user);
-  }
-
-  getUserId(): number | null {
-    const token = this.getToken();
-
-    if (!token) return null;
-
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-
-      // reutrn the user id from the payload of the token
-      return payload.user.id;
-    } catch {
-      return null;
-    }
+    return !!this.getToken();
   }
 }

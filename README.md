@@ -4,200 +4,96 @@
 
 MyStore is a full-stack e-commerce web application built using Angular for the frontend and a Node.js REST API backend running inside Docker.
 
-The application allows users to browse products, view product details, register, log in, add items to a shopping cart, and complete a checkout process. The backend provides persistent data storage with seeded sample data so the application works immediately after setup.
+This project demonstrates a real-world full-stack architecture, featuring a modular Angular frontend, template-driven forms, and a persistent PostgreSQL database.
 
-This project was developed as part of the Udacity Full Stack JavaScript Nanodegree program and demonstrates real-world full-stack application architecture.
+## 🚀 Quick Start for Reviewers (Standalone Mode)
 
----
+To meet the rubric requirement for a self-contained review flow, this application includes a Standalone Mock Mode. You do not need Docker or the backend running to test the full functionality.
 
-## Repository Structure
+### 1. Installation
+
+From the root directory, run:
+
+```bash
+npm install
+```
+
+(This will automatically install all frontend dependencies).
+
+### 2. Launch
+
+From the root directory, run:
+
+```bash
+npm start
+```
+
+(Alternatively, navigate to `/frontend` and run `ng serve`).
+
+### 3. Access the App
+
+Open [http://localhost:4200](http://localhost:4200) in your browser.
+
+**Note for Reviewers:**
+
+- _Data Fallback:_ If the backend is not detected, the app automatically switches to a local `public/products.json` file.
+- _Mock Auth:_ Authentication is managed via localStorage. You can log in using the pre-seeded credentials:
+  - Username: `tarek`
+  - Password: `tarek2026`
+- _UI Feedback:_ Clear notifications toasts are provided for all major actions, including adding/removing items from the cart and checkout completion.
+
+## 🛠 Repository Structure
 
 ```
 MY_STORE/
- ├── backend/      # Node.js REST API running in Docker
- ├── frontend/     # Angular application
+ ├── backend/      # Node.js REST API (Dockerized)
+ ├── frontend/     # Angular SPA (Standalone & Integrated)
+ ├── package.json  # Root configuration for simplified setup
  └── README.md
 ```
 
----
-
 ## Features
 
-### User Features
+### User & Cart Experience
 
-* User registration (Sign Up)
-* User login authentication
-* Protected routes using Angular Guards
-* Logout functionality
+- **Authentication:** User registration and login with protected routes using Angular Guards.
+- **Product Catalog:** Dynamic product listing and detailed views.
+- **Shopping Cart:** Add/Remove items with real-time total calculation and instant user feedback.
+- **Checkout:** Validated checkout form with a success confirmation flow.
 
-### Product Features
+### Architecture
 
-* Product listing page
-* Product details page
-* Fetch products from REST API
-* Responsive product cards
-* Template-driven ADD/EDIT products forms
-
-### Cart Features
-
-* Add product to cart
-* Remove product from cart
-* Real-time cart total calculation
-* Cart persistence during session
-* Simple Product quantity management
-
-### Checkout Features
-
-* Template-driven checkout form
-* Form validation
-* Order submission
-* Order success confirmation page
-
-### Architecture Features
-
-* Angular standalone components
-* Angular routing
-* Route guards for authentication
-* HTTP interceptors for API requests
-* Services for state management
-* Observable-based data handling (RxJS)
-* REST API backend
-* Dockerized backend environment
-* Seeded database for immediate testing
-* CORS configuration
-* Clean modular project structure
-
----
+- **Modular Routing:** Implemented via a dedicated AppRoutingModule.
+- **State Management:** Service-based logic for cart management and data persistence.
+- **Full-Stack Ready:** Built-in HTTP Interceptors for API token management and Docker Compose orchestration for the database.
 
 ## Technologies Used
 
-Frontend:
+- **Frontend:** Angular (Standalone Components), TypeScript, RxJS, Bootstrap, HTML/CSS.
+- **Backend:** Node.js, Express, PostgreSQL, Docker, Docker Compose.
 
-* Angular
-* TypeScript
-* RxJS
-* Bootstrap
-* HTML
+## 🐳 Full-Stack Setup (Optional)
 
-Backend:
+If you wish to test the project with the live REST API and database:
 
-* Node.js
-* Express
-* Postgres 
-* REST API
-* Docker
-* Docker Compose
-
----
-
-## System Requirements
-
-* Node.js
-* npm
-* Docker
-* Angular CLI
-
----
-
-## Installation and Setup
-
-Clone the repository:
-
-```bash
-git clone https://github.com/tarekrishmawi/my_store
-cd MY_STORE
-```
-
----
-
-## Step 1 — Start Backend (Docker)
-
-Navigate to the backend directory:
+### Start Backend:
 
 ```bash
 cd backend
-```
-
-# Environment Variables
-
-Copy the example environment file:
-
-```bash
 cp .env.example .env
-```
-
-Copy `env.example` to `.env` and fill in the required variables. 
-
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the backend container:
-
-```bash
 npm run docker:up
 ```
 
-The backend will:
-
-* Start automatically
-* Seed the database
-* Create sample products
-* Create test user accounts
-
-Backend API will run at:
-
-```
-http://localhost:3000
-```
-
----
-
-## Step 2 — Start Frontend (Angular)
-
-Open a new terminal.
-
-Navigate to the frontend directory:
+### Launch Frontend:
 
 ```bash
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Run the Angular development server:
-
-```bash
 ng serve
 ```
 
-Open the application:
-
-```
-http://localhost:4200
-```
-
----
-
-# Default Seeded User
-
-During setup, a default user is automatically created.
-
-Example:
-
-```json
-{
-  "username": "tarekrishmawi",
-  "password": "tarek2026"
-}
-```
+The application will automatically detect the API at http://localhost:3000 and switch from Mock mode to Live mode.
 
 ## Project Structure (Frontend)
 
@@ -205,61 +101,17 @@ Example:
 frontend/
  ├── src/
  │    ├── app/
- │    │    ├── components/
- │    │    ├── services/
- │    │    ├── models/
- │    │    ├── guards/
- │    │    ├── interceptors/
- │    │    └── pages/
+ │    │    ├── app-routing.module.ts  # Explicit Routing Module
+ │    │    ├── components/            # UI Components
+ │    │    ├── services/              # Auth, Product, and Cart logic
+ │    │    ├── models/                # TypeScript Interfaces
+ │    │    ├── guards/                # Route Protection
+ │    │    └── pages/                 # Full-page views
 ```
-
----
-
-## User Flow
-
-1. User opens the application
-2. Products are loaded from the backend API
-3. User registers or logs in
-4. User browses products
-5. User views product details
-6. User adds items to cart
-7. User reviews cart
-8. User completes checkout
-9. Order confirmation is displayed
-
----
-
-## Running the Application (Quick Start)
-
-```
-git clone <repo-url>
-
-cd MY_STORE/backend
-npm install
-npm run docker:up
-
-cd ../frontend
-npm install
-ng serve
-```
-
----
-
-## Notes for Reviewer
-
-* The backend runs in Docker
-* The database is automatically seeded
-* All features are fully functional
-* Haven't used all API endpoints
-* If the backend is not running, the app may not function correctly since it depends on the API.
-
----
 
 ## Author
 
 Tarek Rishmawi
-
----
 
 ## License
 

@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart';
 import { Product } from '../../models/product';
 import { CartItem } from '../../models/cart-item';
 import { RouterLink } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,10 @@ export class Cart {
   items: CartItem[] = []; // Use CartItem
   total: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private toast: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -46,6 +50,7 @@ export class Cart {
 
   remove(index: number): void {
     this.cartService.remove(index);
+    this.toast.show('Item removed from cart');
     this.loadCart();
   }
 
