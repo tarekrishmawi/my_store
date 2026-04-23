@@ -42,7 +42,6 @@ MY_STORE/
 
 * Add product to cart
 * Remove product from cart
-* Cart item quantity management
 * Real-time cart total calculation
 * Cart persistence during session
 
@@ -117,6 +116,17 @@ Navigate to the backend directory:
 ```bash
 cd backend
 ```
+
+# Environment Variables
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Copy `env.example` to `.env` and fill in the required variables. 
+
 
 Install dependencies:
 
@@ -238,9 +248,9 @@ ng serve
 
 * The backend runs in Docker
 * The database is automatically seeded
-* No external configuration is required
-* The application runs entirely locally
 * All features are fully functional
+* Haven't used all API endpoints
+* If the backend is not running, the app may not function correctly since it depends on the API.
 
 ---
 
