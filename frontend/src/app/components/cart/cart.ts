@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart';
 import { Product } from '../../models/product';
+import { CartItem } from '../../models/cart-item';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -11,7 +12,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cart.html',
 })
 export class Cart {
-  items: Product[] = [];
+  items: CartItem[] = []; // Use CartItem
   total: number = 0;
 
   constructor(private cartService: CartService) {}
@@ -22,6 +23,24 @@ export class Cart {
 
   loadCart(): void {
     this.items = this.cartService.getItems();
+    this.total = this.cartService.total();
+  }
+
+  onQuantityChange(id: number, event: any): void {
+    const qty = Number(event.target.value);
+
+    // Safety check for invalid input
+    if (qty < 1) {
+      alert('Quantity must be at least 1');
+      this.loadCart(); // Reset view
+      return;
+    }
+
+    this.cartService.updateQuantity(id, qty);
+    this.total = this.cartService.total();
+  }
+
+  calculateTotal(): void {
     this.total = this.cartService.total();
   }
 
