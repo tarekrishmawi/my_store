@@ -36,7 +36,7 @@ MY_STORE/
 * Product details page
 * Fetch products from REST API
 * Responsive product cards
-* ADD/EDIT products
+* Template-driven ADD/EDIT products forms
 
 ### Cart Features
 
@@ -44,6 +44,7 @@ MY_STORE/
 * Remove product from cart
 * Real-time cart total calculation
 * Cart persistence during session
+* Simple Product quantity management
 
 ### Checkout Features
 
